@@ -1,43 +1,46 @@
-# Movie Rating System Requirements 
+# Movie Rating System Requirements
 
-R1. The system shall store movie metadata.
+## 1. Movies
 
-R2. Every movie shall be uniquely identified by a movie ID.
+- R1: The system shall store information about movies.
+- R2: Each movie shall be uniquely identified by a movie ID.
+- R3: A movie shall have a title.
+- R4: A movie may contain an overview, release date, runtime, budget,
+  revenue, source vote average, and source vote count.
+- R5: Source vote information imported with movie metadata shall remain
+  separate from ratings submitted by users of this system.
 
-R3. The system shall store genres independently of movies.
+## 2. Genres
 
-R4. A movie may belong to zero or more genres.
+- R6: The system shall store movie genres.
+- R7: Each genre shall be uniquely identified by a genre ID.
+- R8: Each genre shall have a unique name.
+- R9: A movie may belong to multiple genres.
+- R10: A genre may be associated with multiple movies.
 
-R5. A genre may be associated with zero or more movies.
+## 3. Users
 
-R6. The system shall allow users to create accounts.
+- R11: The system shall store registered users.
+- R12: Each user shall be uniquely identified by a user ID.
+- R13: Each user shall have a unique username.
+- R14: Each user shall have a unique email address.
+- R15: The system shall store a password for each user.
+- R16: The system shall record when a user account was created.
 
-R7. Every user shall have a unique user ID.
+## 4. Ratings and Reviews
 
-R8. Usernames shall be unique.
+- R17: A user may rate movies stored in the system.
+- R18: A movie may receive ratings from multiple users.
+- R19: A user may rate a particular movie at most once.
+- R20: User ratings shall be between 1.0 and 5.0.
+- R21: A user may optionally include a written review with their rating.
+- R22: The system shall record when a rating was submitted.
+- R23: A rating must reference an existing user.
+- R24: A rating must reference an existing movie.
 
-R9. Email addresses shall be unique.
+## 5. Rating Statistics
 
-R10. A user may rate zero or more movies.
-
-R11. A movie may receive ratings from zero or more users.
-
-R12. A user may submit at most one rating for a particular movie.
-
-R13. Ratings shall be between 1.0 and 5.0.
-
-R14. Ratings shall use increments of 0.5.
-
-R15. A rating may contain an optional written review.
-
-R16. The system shall record the date and time at which a rating
-     was created.
-
-R17. The system shall be able to calculate the average user
-     rating for a movie.
-
-R18. The system shall be able to calculate the number of user
-     ratings received by a movie.
-
-R19. Imported TMDB vote statistics shall remain distinguishable
-     from ratings submitted by users of this system.
+- R25: The system shall be able to calculate the average user rating
+  for a movie from ratings submitted by users.
+- R26: The system shall be able to determine the number of user ratings
+  submitted for a movie.

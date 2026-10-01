@@ -12,8 +12,8 @@ CREATE TABLE Movies (
     runtime DECIMAL(6,1),
     budget BIGINT,
     revenue BIGINT,
-    rating_average DECIMAL(3,1),
-    rating_count INT
+    vote_average DECIMAL(3,1),
+    vote_count INT,
 
     CHECK (runtime IS NULL OR runtime >= 0),
     CHECK (budget IS NULL OR budget >= 0),
@@ -29,7 +29,7 @@ CREATE TABLE Movies (
 
 CREATE TABLE Genres (
     genre_id INT PRIMARY KEY,
-    genre_name VARCHAR(100) NOT NULL
+    genre_name VARCHAR(100) NOT NULL UNIQUE
 );
 
 
@@ -38,8 +38,8 @@ CREATE TABLE Genres (
 -- This is a many-to-many relationship table that links movies to genres.
 
 CREATE TABLE MovieGenre(
-    movie_id INT,
-    genre_id INT,
+    movie_id INT NOT NULL,
+    genre_id INT NOT NULL,
 
     PRIMARY KEY (movie_id, genre_id),
 
@@ -55,9 +55,9 @@ CREATE TABLE MovieGenre(
 
 CREATE TABLE Users(
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 );
