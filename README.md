@@ -1,2 +1,2 @@
-# movie-rating-system
-CSC 370 
+# Uvic CSC 370, Fall 2026
+## Project: Movie
