@@ -1,5 +1,9 @@
+-- NOTE YOU MUST REPLACE MY NAME WITH YOUR OWN USER IN PATH DIRECTORY.
+
 CREATE DATABASE IF NOT EXISTS movie_rating_system;
 USE movie_rating_system;
+
+SET GLOBAL local_infile=ON;
 
 -- Create the Movies table.
 -- Stores movie metadata imported from the dataset.
@@ -12,16 +16,44 @@ CREATE TABLE Movies (
     runtime DECIMAL(6,1),
     budget BIGINT,
     revenue BIGINT,
-    vote_average DECIMAL(3,1),
-    vote_count INT,
+    rating_average DECIMAL(3,1),
+    rating_count INT,
 
     CHECK (runtime IS NULL OR runtime >= 0),
     CHECK (budget IS NULL OR budget >= 0),
     CHECK (revenue IS NULL OR revenue >= 0),
-    CHECK (vote_average IS NULL
-           OR (vote_average >= 0 AND vote_average <= 10)),
-    CHECK (vote_count IS NULL OR vote_count >= 0)
+    CHECK (rating_average IS NULL
+           OR (rating_average >= 0 AND rating_average <= 10)),
+    CHECK (rating_count IS NULL OR rating_count >= 0)
 );
+
+LOAD DATA LOCAL INFILE '/Users/morgs/Documents/CSC370/movie-rating-system/data/cooked/movies.csv'
+INTO TABLE Movies
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(
+    @movie_id,
+    @title,
+    @overview,
+    @release_date,
+    @runtime,
+    @budget,
+    @revenue,
+    @rating_average,
+    @rating_count
+)
+SET
+    movie_id = @movie_id,
+    title = @title,
+    overview = NULLIF(@overview, ''),
+    release_date = NULLIF(@release_date, ''),
+    runtime = NULLIF(@runtime, ''),
+    budget = NULLIF(@budget, ''),
+    revenue = NULLIF(@revenue, ''),
+    rating_average = NULLIF(@rating_average, ''),
+    rating_count = NULLIF(@rating_count, '');
 
 
 -- Create the Genres table.
@@ -31,6 +63,21 @@ CREATE TABLE Genres (
     genre_id INT PRIMARY KEY,
     genre_name VARCHAR(100) NOT NULL UNIQUE
 );
+
+LOAD DATA LOCAL INFILE '/Users/morgs/Documents/CSC370/movie-rating-system/data/cooked/genres.csv'
+INTO TABLE Genres
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(
+    @genre_id,
+    @genre_name
+)
+SET
+    genre_id = @genre_id,
+    genre_name = @genre_name;
+
 
 
 
